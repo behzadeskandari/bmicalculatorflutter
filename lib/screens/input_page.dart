@@ -1,9 +1,13 @@
 import 'dart:ffi';
 
+import './result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import './icon_content.dart';
 import './constants.dart';
+import './bottom_button.dart';
+import './round_icon_button.dart';
+import './resusable_card.dart';
 
 enum Gender { male, female, defaultEnum }
 
@@ -231,11 +235,16 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            color: kBottomContainerColour,
-            margin: EdgeInsets.only(top: 10.0),
-            width: double.infinity,
-            height: kBottomContainerHieght,
+          BottomButton(
+            buttonTitle: 'CALCULATE',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultPage(),
+                ),
+              );
+            },
           )
         ],
         // child: Text(
@@ -252,31 +261,9 @@ class _InputPageState extends State<InputPage> {
   }
 }
 
-class ReusableCard extends StatelessWidget {
-  ReusableCard(
-      {@required this.colour = Colors.transparent,
-      required this.cardChild,
-      required this.onPress});
-
-  final Color colour;
-  final Widget cardChild;
-  final VoidCallback onPress;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPress,
-      child: Container(
-        child: cardChild,
-        margin: EdgeInsets.all(15.0),
-        decoration: BoxDecoration(
-          color: colour,
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-    );
-  }
-}
+//() {
+//         onTap();
+//},
 
 //Container(
 //         margin: EdgeInsets.all(15.0),
@@ -286,27 +273,3 @@ class ReusableCard extends StatelessWidget {
 //         ),
 //
 //typedef Int2VoidFunc = void Function()?;
-
-class RoundIconButton extends StatelessWidget {
-  RoundIconButton({@required required this.onPress, required this.icon});
-
-  // const RoundIconButton({Key? key}) : super(key: key);
-  final void Function()? onPress;
-  final IconData icon;
-  // Map<dynamic, dynamic> _updateOnPress() => {};
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      child: Icon(icon),
-      constraints: BoxConstraints.tightFor(
-        width: 56.0,
-        height: 56.0,
-      ),
-      onPressed: onPress,
-      elevation: 0.0,
-      // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      shape: CircleBorder(),
-      fillColor: Color(0xFF4C4F5E),
-    );
-  }
-}
