@@ -1,10 +1,19 @@
+import 'package:bmicalculatorflutter/components/bottom_button.dart';
 import 'package:bmicalculatorflutter/constants.dart';
-import 'package:bmicalculatorflutter/input_page.dart';
+import 'package:bmicalculatorflutter/screens/input_page.dart';
 import 'package:flutter/material.dart';
-import './resusable_card.dart';
+import '../components/resusable_card.dart';
 
 class ResultPage extends StatelessWidget {
-  const ResultPage({Key? key}) : super(key: key);
+  // const ResultPage({Key? key}) : super(key: key);
+  ResultPage(
+      {@required required this.interpretation,
+      required this.bmiResult,
+      required this.resultText});
+
+  final String bmiResult;
+  final String resultText;
+  final String interpretation;
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +27,7 @@ class ResultPage extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
+              padding: EdgeInsets.all(15.0),
               child: Text(
                 'Your Result',
                 style: kTitleTextStyle,
@@ -33,15 +43,15 @@ class ResultPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Normal',
+                    resultText.toUpperCase(),
                     style: kResultTextStyle,
                   ),
                   Text(
-                    '18.4',
+                    bmiResult,
                     style: kBMITextStyle,
                   ),
                   Text(
-                    'Your BMI result is quite low you should eat more!',
+                    interpretation,
                     style: kBodyTextStyle,
                     textAlign: TextAlign.center,
                   ),
@@ -49,7 +59,12 @@ class ResultPage extends StatelessWidget {
               ),
             ),
             flex: 5,
-          )
+          ),
+          BottomButton(
+              buttonTitle: 'RE-CALCULATE',
+              onTap: () {
+                Navigator.pop(context);
+              })
         ],
       ),
     );
